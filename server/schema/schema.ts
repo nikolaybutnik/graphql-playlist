@@ -91,14 +91,14 @@ const RootQuery = new GraphQLObjectType({
     },
     // Query all books
     books: {
-      type: GraphQLList(BookType),
+      type: new GraphQLList(BookType),
       resolve(parent: any, args: any) {
         return books
       },
     },
     // Query all authors
     authors: {
-      type: GraphQLList(AuthorType),
+      type: new GraphQLList(AuthorType),
       resolve(parent: any, args: any) {
         return authors
       },
