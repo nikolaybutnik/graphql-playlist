@@ -11,9 +11,9 @@ const {
 
 // Dummy data for testing
 const books = [
-  { name: 'Name of the Wind', genre: 'Fantasy', id: '1' },
-  { name: 'The Final Empire', genre: 'Fantasy', id: '2' },
-  { name: 'The Long Earth', genre: 'Sci-Fi', id: '3' },
+  { name: 'Name of the Wind', genre: 'Fantasy', id: '1', authorId: '1' },
+  { name: 'The Final Empire', genre: 'Fantasy', id: '2', authorId: '2' },
+  { name: 'The Long Earth', genre: 'Sci-Fi', id: '3', authorId: '3' },
 ]
 const authors = [
   { name: 'Patrick Rothfuss', age: 44, id: '1' },
@@ -28,6 +28,13 @@ const BookType = new GraphQLObjectType({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     genre: { type: GraphQLString },
+    author: {
+      type: AuthorType,
+      // When we have nested data, we already have the parent data (the book object).
+      resolve(parent: any, args: any) {
+        return _.find(authors, { id: parent.authorId })
+      },
+    },
   }),
 })
 
@@ -50,7 +57,8 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       // GraphQLID type basically enables type coersion, so we can search by string or number
       // Args is the data passed to make the query.
-      resolve(parent: string, args: any) {
+      // Resolve function looks at data and returns what's needed.
+      resolve(parent: any, args: any) {
         // Code to get data from db/other source.
         return _.find(books, { id: args.id })
       },
