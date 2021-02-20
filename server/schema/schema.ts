@@ -1,3 +1,5 @@
+import { resolve } from 'path'
+
 const graphql = require('graphql')
 const _ = require('lodash')
 
@@ -67,6 +69,7 @@ const AuthorType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
+    // Query a single book
     book: {
       type: BookType,
       args: { id: { type: GraphQLID } },
@@ -78,11 +81,26 @@ const RootQuery = new GraphQLObjectType({
         return _.find(books, { id: args.id })
       },
     },
+    // Query a single author
     author: {
       type: AuthorType,
       args: { id: { type: GraphQLID } },
       resolve(parent: string, args: any) {
         return _.find(authors, { id: args.id })
+      },
+    },
+    // Query all books
+    books: {
+      type: GraphQLList(BookType),
+      resolve(parent: any, args: any) {
+        return books
+      },
+    },
+    // Query all authors
+    authors: {
+      type: GraphQLList(AuthorType),
+      resolve(parent: any, args: any) {
+        return authors
       },
     },
   },
