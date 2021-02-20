@@ -31,6 +31,16 @@ const BookType = new GraphQLObjectType({
   }),
 })
 
+// This defines the Author object type.
+const AuthorType = new GraphQLObjectType({
+  name: 'Author',
+  fields: () => ({
+    id: { type: GraphQLID },
+    name: { type: GraphQLString },
+    age: { type: GraphQLInt },
+  }),
+})
+
 // This defines how we initially enter the graph.
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -39,9 +49,17 @@ const RootQuery = new GraphQLObjectType({
       type: BookType,
       args: { id: { type: GraphQLID } },
       // GraphQLID type basically enables type coersion, so we can search by string or number
+      // Args is the data passed to make the query.
       resolve(parent: string, args: any) {
         // Code to get data from db/other source.
         return _.find(books, { id: args.id })
+      },
+    },
+    author: {
+      type: AuthorType,
+      args: { id: { type: GraphQLID } },
+      resolve(parent: string, args: any) {
+        return _.find(authors, { id: args.id })
       },
     },
   },
