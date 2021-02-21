@@ -10,6 +10,7 @@ const {
   GraphQLID,
   GraphQLInt,
   GraphQLList,
+  GraphQLNonNull,
 } = graphql
 
 // This defines the Book object type.
@@ -100,9 +101,9 @@ const Mutation = new GraphQLObjectType({
       type: AuthorType,
       args: {
         name: {
-          type: GraphQLString,
+          type: new GraphQLNonNull(GraphQLString),
         },
-        age: { type: GraphQLInt },
+        age: { type: new GraphQLNonNull(GraphQLInt) },
       },
       resolve(parent: any, args: any) {
         const author = new Author({
@@ -119,13 +120,13 @@ const Mutation = new GraphQLObjectType({
       type: BookType,
       args: {
         name: {
-          type: GraphQLString,
+          type: new GraphQLNonNull(GraphQLString),
         },
         genre: {
-          type: GraphQLString,
+          type: new GraphQLNonNull(GraphQLString),
         },
         authorId: {
-          type: GraphQLID,
+          type: new GraphQLNonNull(GraphQLID),
         },
       },
       resolve(parent: any, args: any) {
