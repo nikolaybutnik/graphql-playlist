@@ -26,7 +26,7 @@ const BookType = new GraphQLObjectType({
       type: AuthorType,
       // When we have nested data, we already have the parent data (the book object).
       resolve(parent: any, args: any) {
-        // return _.find(authors, { id: parent.authorId })
+        return Author.findById(parent.authorId)
       },
     },
   }),
@@ -44,7 +44,7 @@ const AuthorType = new GraphQLObjectType({
       resolve(parent: any, args: any) {
         // Match the requested book's authorId property to the id property of the parents (Author).
         // Returns array of all matches.
-        // return _.filter(books, { authorId: parent.id })
+        return Book.find({ authorId: parent.id })
       },
     },
   }),
@@ -63,7 +63,7 @@ const RootQuery = new GraphQLObjectType({
       // Resolve function looks at data and returns what's needed.
       resolve(parent: any, args: any) {
         // Code to get data from db/other source.
-        // return _.find(books, { id: args.id })
+        return Book.findById(args.id)
       },
     },
     // Query a single author
@@ -71,21 +71,21 @@ const RootQuery = new GraphQLObjectType({
       type: AuthorType,
       args: { id: { type: GraphQLID } },
       resolve(parent: string, args: any) {
-        // return _.find(authors, { id: args.id })
+        return Author.findById(args.id)
       },
     },
     // Query all books
     books: {
       type: new GraphQLList(BookType),
       resolve(parent: any, args: any) {
-        // return books
+        return Book.find({})
       },
     },
     // Query all authors
     authors: {
       type: new GraphQLList(AuthorType),
       resolve(parent: any, args: any) {
-        // return authors
+        return Author.find({})
       },
     },
   },
