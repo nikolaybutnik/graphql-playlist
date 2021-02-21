@@ -1,4 +1,5 @@
 const express = require('express')
+const mongoose = require('mongoose')
 const { graphqlHTTP } = require('express-graphql')
 const schema = require('./schema/schema')
 
@@ -11,6 +12,17 @@ app.use(
     schema, // or schema: schema
     graphiql: true,
   })
+)
+
+// Connect MongoDB
+mongoose.connect(
+  process.env.MONGODB_URI || 'mongodb://localhost/graphql-playlist',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  }
 )
 
 app.listen(4000, () => {
