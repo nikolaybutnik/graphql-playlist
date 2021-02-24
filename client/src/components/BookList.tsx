@@ -13,7 +13,7 @@ const getBooksQuery = gql`
 
 const BookList = () => {
   const data = useQuery(getBooksQuery)
-  console.log(data)
+  // console.log(data)
   const displayBooks = () => {
     // Check if data from the request is still loading and render a placeholder.
     if (data.loading) {
