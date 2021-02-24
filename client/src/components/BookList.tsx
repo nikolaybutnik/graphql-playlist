@@ -11,7 +11,7 @@ const getBooksQuery = gql`
   }
 `
 
-function BookList() {
+const BookList = () => {
   const data = useQuery(getBooksQuery)
   console.log(data)
   const displayBooks = () => {
