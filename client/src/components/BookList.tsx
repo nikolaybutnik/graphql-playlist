@@ -2,6 +2,12 @@ import React from 'react'
 import { useQuery } from '@apollo/client'
 import { getBooksQuery } from '../queries/queries'
 
+interface bookObject {
+  name: string
+  genre: string
+  id: string
+}
+
 const BookList = () => {
   const data = useQuery(getBooksQuery)
   // console.log(data)
@@ -10,7 +16,7 @@ const BookList = () => {
     if (data.loading) {
       return <div>Loading books</div>
     } else {
-      return data.data.books.map((book: any) => {
+      return data.data.books.map((book: bookObject) => {
         return <li key={book.id}>{book.name}</li>
       })
     }
