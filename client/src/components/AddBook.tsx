@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { getAuthorsQuery } from '../queries/queries'
 
 const AddBook = () => {
+  const [form, setForm] = useState({})
+
   const data = useQuery(getAuthorsQuery)
-  console.log(data)
+  // console.log(data)
+
   // Check if data from the request is still loading and render a placeholder.
   const displayAuthors = () => {
     // Check if data from the request is still loading and render a placeholder.
@@ -20,21 +23,37 @@ const AddBook = () => {
       })
     }
   }
+
+  const handleFormSubmit = (event: React.FormEvent) => {
+    event.preventDefault()
+    console.log(event.type)
+  }
+
   return (
-    <form>
+    <form onSubmit={(event) => handleFormSubmit(event)}>
       <div className="field">
         <label>Book name:</label>
-        <input type="text" />
+        <input
+          type="text"
+          onChange={(event) => setForm({ ...form, name: event.target.value })}
+        />
       </div>
 
       <div className="field">
         <label>Genre:</label>
-        <input type="text" />
+        <input
+          type="text"
+          onChange={(event) => setForm({ ...form, genre: event.target.value })}
+        />
       </div>
 
       <div className="field">
         <label>Author:</label>
-        <select>
+        <select
+          onChange={(event) =>
+            setForm({ ...form, authorId: event.target.value })
+          }
+        >
           <option>Select author</option>
           {displayAuthors()}
         </select>
