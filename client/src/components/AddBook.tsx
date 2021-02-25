@@ -2,6 +2,13 @@ import React, { useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { getAuthorsQuery } from '../queries/queries'
 
+// Create interface for type checking of author object
+interface authorObject {
+  name: string
+  age: number
+  id: string
+}
+
 const AddBook = () => {
   const [form, setForm] = useState({})
 
@@ -14,7 +21,7 @@ const AddBook = () => {
     if (data.loading) {
       return <option>Loading authors</option>
     } else {
-      return data.data.authors.map((author: any) => {
+      return data.data.authors.map((author: authorObject) => {
         return (
           <option key={author.id} value={author.id}>
             {author.name}
