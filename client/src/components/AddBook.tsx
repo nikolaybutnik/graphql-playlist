@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
-import { getAuthorsQuery, addBookMutation } from '../queries/queries'
+import {
+  getAuthorsQuery,
+  getBooksQuery,
+  addBookMutation,
+} from '../queries/queries'
 
 // Create interface for type checking of author object
 interface authorObject {
@@ -14,7 +18,8 @@ const AddBook = () => {
 
   const authorData = useQuery(getAuthorsQuery)
 
-  const [addBook, { data }] = useMutation(addBookMutation)
+  // The second variable represents the current status of the mutation's execution.
+  const [addBook, data] = useMutation(addBookMutation)
 
   // Check if data from the request is still loading and render a placeholder.
   const displayAuthors = () => {
@@ -41,7 +46,10 @@ const AddBook = () => {
           genre: form.genre,
           authorId: form.authorId,
         },
+        // After the mutation was executed, we can run queries again to update data.
+        refetchQueries: [{ query: getBooksQuery }],
       })
+      console.log(data)
     } else {
       console.error('All form fields need to be filled out.')
     }
