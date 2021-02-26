@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { useQuery } from '@apollo/client'
-import { getAuthorsQuery } from '../queries/queries'
+import { useQuery, useMutation } from '@apollo/client'
+import { getAuthorsQuery, addBookMutation } from '../queries/queries'
 
 // Create interface for type checking of author object
 interface authorObject {
@@ -10,18 +10,19 @@ interface authorObject {
 }
 
 const AddBook = () => {
-  const [form, setForm] = useState({})
+  const [form, setForm] = useState({ name: '', genre: '', authorId: '' })
 
-  const data = useQuery(getAuthorsQuery)
-  // console.log(data)
+  const authorData = useQuery(getAuthorsQuery)
+
+  const [addBook, { data }] = useMutation(addBookMutation)
 
   // Check if data from the request is still loading and render a placeholder.
   const displayAuthors = () => {
     // Check if data from the request is still loading and render a placeholder.
-    if (data.loading) {
+    if (authorData.loading) {
       return <option>Loading authors</option>
     } else {
-      return data.data.authors.map((author: authorObject) => {
+      return authorData.data.authors.map((author: authorObject) => {
         return (
           <option key={author.id} value={author.id}>
             {author.name}
@@ -33,7 +34,17 @@ const AddBook = () => {
 
   const handleFormSubmit = (event: React.FormEvent) => {
     event.preventDefault()
-    console.log(event.type)
+    if (form.name !== '' && form.genre !== '' && form.authorId !== '') {
+      addBook({
+        variables: {
+          name: form.name,
+          genre: form.genre,
+          authorId: form.authorId,
+        },
+      })
+    } else {
+      console.error('All form fields need to be filled out.')
+    }
   }
 
   return (
@@ -42,6 +53,7 @@ const AddBook = () => {
         <label>Book name:</label>
         <input
           type="text"
+          value={form.name}
           onChange={(event) => setForm({ ...form, name: event.target.value })}
         />
       </div>
@@ -50,6 +62,7 @@ const AddBook = () => {
         <label>Genre:</label>
         <input
           type="text"
+          value={form.genre}
           onChange={(event) => setForm({ ...form, genre: event.target.value })}
         />
       </div>
