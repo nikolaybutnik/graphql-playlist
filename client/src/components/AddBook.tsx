@@ -13,7 +13,7 @@ interface authorObject {
   id: string
 }
 
-const AddBook = () => {
+const AddBook: React.FC = () => {
   const [form, setForm] = useState({ name: '', genre: '', authorId: '' })
 
   const authorData = useQuery(getAuthorsQuery)
