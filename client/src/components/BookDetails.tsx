@@ -2,7 +2,16 @@ import React from 'react'
 import { useQuery } from '@apollo/client'
 import { getBookQuery } from '../queries/queries'
 
-const BookDetails = ({ bookId }) => {
+interface Props {
+  bookId: string
+}
+
+interface BookItem {
+  id: string
+  name: string
+}
+
+const BookDetails = ({ bookId }: Props) => {
   const { data } = useQuery(getBookQuery, {
     variables: {
       id: bookId,
@@ -11,6 +20,7 @@ const BookDetails = ({ bookId }) => {
 
   const displayBookDetails = () => {
     if (data) {
+      console.log(data)
       return (
         <div>
           <h2>{data.book.name}</h2>
@@ -18,7 +28,7 @@ const BookDetails = ({ bookId }) => {
           <p>{data.book.author.name}</p>
           <p>Other books by {data.book.author.name}: </p>
           <ul className="other-books">
-            {data.book.author.books.map((item) => (
+            {data.book.author.books.map((item: BookItem) => (
               <li key={item.id}>{item.name}</li>
             ))}
           </ul>
