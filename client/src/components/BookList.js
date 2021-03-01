@@ -8,7 +8,7 @@ import BookDetails from './BookDetails'
 const BookList = () => {
   const data = useQuery(getBooksQuery)
 
-  const [selectedBook, setSelectedBook] = useState('')
+  const [selectedBook, setSelectedBook] = useState(null)
 
   const displayBooks = () => {
     // Check if data from the request is still loading and render a placeholder.
