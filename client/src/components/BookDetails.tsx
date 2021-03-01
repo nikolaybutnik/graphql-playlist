@@ -4,6 +4,7 @@ import { getBookQuery } from '../queries/queries'
 
 interface Props {
   bookId: string
+  children?: React.ReactNode | React.ReactNodeArray
 }
 
 interface BookItem {
