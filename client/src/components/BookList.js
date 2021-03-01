@@ -5,13 +5,7 @@ import { getBooksQuery } from '../queries/queries'
 // Components
 import BookDetails from './BookDetails'
 
-interface bookObject {
-  name: string
-  genre: string
-  id: string
-}
-
-const BookList: React.FC = () => {
+const BookList = () => {
   const data = useQuery(getBooksQuery)
 
   const [selectedBook, setSelectedBook] = useState('')
@@ -21,7 +15,7 @@ const BookList: React.FC = () => {
     if (data.loading) {
       return <div>Loading books</div>
     } else {
-      return data.data.books.map((book: bookObject) => {
+      return data.data.books.map((book) => {
         return (
           <li key={book.id} onClick={(event) => setSelectedBook(book.id)}>
             {book.name}
@@ -33,9 +27,7 @@ const BookList: React.FC = () => {
   return (
     <div>
       <ul id="book-list">{displayBooks()}</ul>
-      <BookDetails
-      // bookId={selectedBook}
-      />
+      <BookDetails bookId={selectedBook} />
     </div>
   )
 }
