@@ -4,7 +4,7 @@
 
 ## Description
 
-This little app is a practice exercise for the purpose of learning the basics of GraphQL. Tutorial provided by Free Code Camp. For added challenge the process was tweaked by using TypeScript rather then JavaScript.
+This little app is a practice exercise for the purpose of learning the basics of GraphQL. Tutorial provided by Free Code Camp. For added challenge the process was tweaked by using TypeScript rather than JavaScript.
 
 ## Built With
 
