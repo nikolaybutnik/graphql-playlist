@@ -13,6 +13,7 @@ The following technologies have been used in this application:
 - [React](https://reactjs.org/)
 - [GraphQL](https://graphql.org/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [MongoDB](https://www.mongodb.com/)
 
 ## Contact
 
