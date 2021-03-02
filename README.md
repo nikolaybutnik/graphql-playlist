@@ -14,6 +14,8 @@ The following technologies have been used in this application:
 - [GraphQL](https://graphql.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [MongoDB](https://www.mongodb.com/)
+- [Express](https://expressjs.com/)
+- [Node](https://nodejs.org/en/)
 
 ## Contact
 
