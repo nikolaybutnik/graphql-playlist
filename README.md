@@ -1,6 +1,6 @@
 # GraphQL Reading List
 
-![GraphQL Reading List Image](https://github.com/nikolaybutnik/graphql-readinglist/blob/main/client/public/images/graphql-readinglist-screenshot.png?raw=true)
+![GraphQL Reading List Image](https://github.com/nikolaybutnik/graphql-readinglist/blob/master/client/public/images/graphql-readinglist-screenshot.png?raw=true)
 
 ## Description
 
